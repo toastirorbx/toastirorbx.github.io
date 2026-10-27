@@ -75,9 +75,6 @@ section .topic{color:var(--dk);font-family:'Sora',sans-serif;font-size:24px;font
 .sc-copy .ok{display:none}
 .sc-copy.done .ok{display:block}
 .sc-copy.done .cp{display:none}
-.clock{font-family:'Sora',sans-serif;font-size:64px;color:var(--ac);line-height:1.2}
-.dot{display:inline-block;width:12px;height:12px;border-radius:50%;background:#7a7a7a;margin-right:8px}
-.dot.on{background:#2fc977}
 .contact{background:var(--lt)}
 .contact .content{margin:0 auto;padding:30px 0}
 .contact .text{width:80%;text-align:center;margin:auto}
@@ -109,7 +106,6 @@ footer .text span{font-size:17px;color:#fff}
 .home .text-three{font-size:28px}
 .about .left img{height:280px;width:280px}
 .skills-details .boxes .per{font-size:40px}
-.clock{font-size:46px}
 }
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
 </style>
@@ -184,20 +180,6 @@ footer .text span{font-size:17px;color:#fff}
 </div>
 </section>
 
-<section class="testimonials" id="availability">
-<div class="content">
-<div class="title"><span>Availability</span></div>
-<div class="boxes" style="justify-content:center">
-<div class="box" style="width:min(100%,520px)">
-<p>My time zone is UTC+5. My time right now:</p>
-<div class="clock" id="clock">00:00:00</div>
-<p style="font-size:20px"><span class="dot" id="dot"></span><span id="status">Checking</span></p>
-<p style="margin-top:10px">Usually online from 10:00 to 22:00 UTC+5.</p>
-</div>
-</div>
-</div>
-</section>
-
 <section class="testimonials" id="payment">
 <div class="content">
 <div class="title"><span>Payment</span></div>
@@ -255,16 +237,6 @@ finish();
 }
 });
 });
-const clock=document.getElementById("clock"),status=document.getElementById("status"),dot=document.getElementById("dot");
-function tick(){
-const d=new Date(Date.now()+5*3600000),p=n=>String(n).padStart(2,"0"),h=d.getUTCHours();
-clock.textContent=p(h)+":"+p(d.getUTCMinutes())+":"+p(d.getUTCSeconds());
-const on=h>=10&&h<22;
-status.textContent=on?"Online now":"Offline now";
-dot.classList.toggle("on",on);
-}
-tick();
-setInterval(tick,1000);
 </script>
 </body>
 </html>
