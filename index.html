@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>toartiro4 | Roblox Scripter</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
@@ -50,7 +51,7 @@ section .title span::after{bottom:-7px;width:70%;left:50%;transform:translateX(-
 section .topic{color:var(--dk);font-family:'Sora',sans-serif;font-size:24px;font-weight:600;margin-bottom:10px}
 .about .about-details{display:flex;justify-content:space-between;align-items:center}
 .about .about-details .left{width:45%}
-.about .left .art{height:400px;width:400px;border-radius:12px;background:linear-gradient(160deg,var(--ac),var(--ac2));display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Sora',sans-serif;font-size:44px;font-weight:700;letter-spacing:1px}
+.about .left img{height:400px;width:400px;object-fit:contain;border-radius:12px}
 .about-details .right{width:55%}
 .about-details .right p{text-align:justify;color:var(--dk);line-height:1.7;margin-bottom:10px}
 .skills{background:var(--lt)}
@@ -67,22 +68,6 @@ section .topic{color:var(--dk);font-family:'Sora',sans-serif;font-size:24px;font
 .skills-details .boxes .per{font-family:'Sora',sans-serif;font-size:48px;color:var(--ac)}
 .testimonials .boxes{display:flex;flex-wrap:wrap;justify-content:space-between}
 .testimonials .boxes .box{margin:20px 0;width:calc(100% / 3 - 20px);text-align:center;border-radius:12px;padding:30px 14px;box-shadow:0 5px 10px rgba(0,0,0,.12);cursor:default;transition:all .4s ease}
-.testimonials .boxes .box:hover{background:var(--ac)}
-.testimonials .boxes .box:hover .topic,.testimonials .boxes .box:hover p{color:#fff}
-.testimonials .boxes .box p{color:var(--soft);font-size:15px;line-height:1.6;transition:all .4s ease}
-.testimonials .boxes .box .topic{transition:all .4s ease}
-.tags{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:14px}
-.tags span{font-size:12px;padding:4px 10px;border-radius:999px;background:var(--ln);color:var(--dk)}
-.win{margin:30px 0;border:1px solid var(--ln);border-radius:12px;overflow:hidden;background:#fff}
-.tabs{display:flex;flex-wrap:wrap;gap:4px;padding:10px;background:var(--lt)}
-.tabs button{font:inherit;font-size:13px;padding:8px 14px;border:0;border-radius:6px;background:transparent;color:var(--soft);cursor:pointer}
-.tabs button.on{background:var(--ac);color:#fff}
-#editor{display:block;width:100%;min-height:320px;padding:18px;border:0;resize:vertical;background:transparent;color:var(--ac);font:14px/1.6 Consolas,'Courier New',monospace;tab-size:4;outline:none}
-.bar{display:flex;align-items:center;gap:14px;padding:10px 14px;background:var(--lt)}
-.bar button{font:inherit;font-weight:500;padding:8px 24px;border:2px solid transparent;border-radius:6px;background:var(--ac);color:#fff;cursor:pointer;transition:all .4s ease}
-.bar button:hover{border-color:var(--ac);background:#fff;color:var(--ac)}
-.bar span{color:var(--soft);font-size:13px}
-#out{min-height:110px;max-height:260px;overflow:auto;padding:16px 18px;color:#0f7a3d;font:14px/1.6 Consolas,'Courier New',monospace;white-space:pre-wrap}
 .clock{font-family:'Sora',sans-serif;font-size:64px;color:var(--ac);line-height:1.2}
 .dot{display:inline-block;width:12px;height:12px;border-radius:50%;background:#7a7a7a;margin-right:8px}
 .dot.on{background:#2fc977}
@@ -101,7 +86,7 @@ footer .text span{font-size:17px;color:#fff}
 .about-details .right{width:90%;margin:40px 0}
 .testimonials .boxes .box{width:calc(100% / 2 - 20px)}
 }
-@media (max-width:900px){.about .left .art{height:350px;width:350px}}
+@media (max-width:900px){.about .left img{height:350px;width:350px}}
 @media (max-width:750px){
 nav .navbar .menu{position:fixed;left:-100%;top:0;background:var(--dk);height:100vh;max-width:400px;width:100%;padding-top:60px;flex-direction:column;align-items:center;transition:all .5s ease}
 .navbar.active .menu{left:0}
@@ -120,7 +105,7 @@ nav .menu-btn,.navbar .menu .cancel-btn{display:block}
 @media (max-width:500px){
 .home .text-two{font-size:48px}
 .home .text-three{font-size:28px}
-.about .left .art{height:280px;width:280px;font-size:34px}
+.about .left img{height:280px;width:280px}
 .skills-details .boxes .per{font-size:40px}
 .clock{font-size:46px}
 }
@@ -162,7 +147,7 @@ nav .menu-btn,.navbar .menu .cancel-btn{display:block}
 <div class="content">
 <div class="title"><span>About me</span></div>
 <div class="about-details">
-<div class="left"><div class="art">Luau</div></div>
+<div class="left"><img src="studio.svg" alt="Roblox Studio"></div>
 <div class="right">
 <div class="topic">Roblox scripter</div>
 <p>I am a Roblox scripter. I work in Roblox Studio and I write in Luau.</p>
@@ -199,18 +184,12 @@ nav .menu-btn,.navbar .menu .cancel-btn{display:block}
 <div class="content">
 <div class="title"><span>Showcase</span></div>
 <div class="boxes">
-<div class="box"><div class="topic">First Person Viewmodel</div><p>Shows the arms and the tool on the screen. It moves when you walk, jump and look around.</p><div class="tags"><span>Springs</span><span>Sway</span><span>Bobbing</span></div></div>
-<div class="box"><div class="topic">Shooting System</div><p>Guns with ammo, reload, recoil and spread. The server checks every shot so cheaters cannot abuse it.</p><div class="tags"><span>Raycast</span><span>Recoil</span><span>Server checks</span></div></div>
-<div class="box"><div class="topic">Inventory and Hotbar</div><p>Items go into slots and stack up. Players can swap, drop and equip items with the keyboard.</p><div class="tags"><span>Stacking</span><span>Slots</span><span>UI</span></div></div>
-<div class="box"><div class="topic">Round System</div><p>A match that moves from lobby to game to the end by itself. Winners get rewards.</p><div class="tags"><span>States</span><span>Timers</span><span>Rewards</span></div></div>
-<div class="box"><div class="topic">Data Save System</div><p>Saves player data and tries again if something goes wrong. Data is not lost when a player leaves.</p><div class="tags"><span>DataStore</span><span>Retry</span><span>Autosave</span></div></div>
-<div class="box"><div class="topic">Quest System</div><p>Gives tasks to players and tracks the progress. Players get a reward when a task is done.</p><div class="tags"><span>Progress</span><span>Events</span><span>Rewards</span></div></div>
-</div>
-<div class="win">
-<div class="tabs" id="tabs"></div>
-<textarea id="editor" spellcheck="false" aria-label="Luau code editor"></textarea>
-<div class="bar"><button id="run" type="button">Run</button><span>You can edit the code and run it again.</span></div>
-<pre id="out" aria-live="polite"></pre>
+<div class="box"><div class="topic">First Person Viewmodel</div><p>Shows the arms and the tool on the screen. It moves when you walk, jump and look around.</p></div>
+<div class="box"><div class="topic">Shooting System</div><p>Guns with ammo, reload, recoil and spread. The server checks every shot so cheaters cannot abuse it.</p></div>
+<div class="box"><div class="topic">Inventory and Hotbar</div><p>Items go into slots and stack up. Players can swap, drop and equip items with the keyboard.</p></div>
+<div class="box"><div class="topic">Round System</div><p>A match that moves from lobby to game to the end by itself. Winners get rewards.</p></div>
+<div class="box"><div class="topic">Data Save System</div><p>Saves player data and tries again if something goes wrong. Data is not lost when a player leaves.</p></div>
+<div class="box"><div class="topic">Quest System</div><p>Gives tasks to players and tracks the progress. Players get a reward when a task is done.</p></div>
 </div>
 </div>
 </section>
@@ -254,7 +233,6 @@ nav .menu-btn,.navbar .menu .cancel-btn{display:block}
 <div class="text"><span>toartiro4</span></div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/fengari-web@0.1.4/dist/fengari-web.js"></script>
 <script>
 let nav=document.querySelector("nav");
 let scrollBtn=document.querySelector(".scroll-button a");
@@ -290,168 +268,6 @@ body.style.overflow="auto";
 scrollBtn.style.pointerEvents="auto";
 });
 }
-const samples=[
-{file:"Spring.lua",code:`local Spring = {}
-Spring.__index = Spring
-
-function Spring.new(stiffness, damping)
-	return setmetatable({x = 0, v = 0, target = 0, k = stiffness, d = damping}, Spring)
-end
-
-function Spring:push(force)
-	self.v = self.v + force
-end
-
-function Spring:step(dt)
-	local a = (self.target - self.x) * self.k - self.v * self.d
-	self.v = self.v + a * dt
-	self.x = self.x + self.v * dt
-	return self.x
-end
-
-local sway = Spring.new(80, 9)
-sway:push(6)
-for i = 1, 12 do
-	print(string.format("frame %02d  sway %.3f", i, sway:step(1 / 30)))
-end`},
-{file:"Weapon.lua",code:`local Weapon = {}
-Weapon.__index = Weapon
-
-function Weapon.new(damage, rpm, mag)
-	return setmetatable({damage = damage, delay = 60 / rpm, ammo = mag, heat = 0, last = -1}, Weapon)
-end
-
-function Weapon:fire(now)
-	if self.ammo <= 0 then return false, "empty" end
-	if now - self.last < self.delay then return false, "wait" end
-	self.last = now
-	self.ammo = self.ammo - 1
-	self.heat = math.min(self.heat + 0.15, 1)
-	return true, self.damage * (1 - self.heat * 0.2)
-end
-
-local gun = Weapon.new(25, 600, 5)
-for i = 1, 8 do
-	local ok, result = gun:fire(i * 0.1)
-	print(i, ok, result)
-end`},
-{file:"Inventory.lua",code:`local Inventory = {}
-Inventory.__index = Inventory
-
-function Inventory.new(slots)
-	return setmetatable({slots = slots, items = {}}, Inventory)
-end
-
-function Inventory:add(name, count, stack)
-	for _, item in ipairs(self.items) do
-		if item.name == name and item.count < stack then
-			local take = math.min(stack - item.count, count)
-			item.count = item.count + take
-			count = count - take
-		end
-	end
-	while count > 0 and #self.items < self.slots do
-		local take = math.min(stack, count)
-		table.insert(self.items, {name = name, count = take})
-		count = count - take
-	end
-	return count
-end
-
-local bag = Inventory.new(3)
-print("left over", bag:add("Potion", 25, 10))
-print("left over", bag:add("Potion", 10, 10))
-for i, item in ipairs(bag.items) do
-	print(i, item.name, item.count)
-end`},
-{file:"Round.lua",code:`local Round = {}
-Round.__index = Round
-
-local nextState = {Lobby = "Playing", Playing = "Ending", Ending = "Lobby"}
-local length = {Lobby = 3, Playing = 5, Ending = 2}
-
-function Round.new()
-	return setmetatable({state = "Lobby", timer = 3}, Round)
-end
-
-function Round:tick()
-	self.timer = self.timer - 1
-	if self.timer <= 0 then
-		self.state = nextState[self.state]
-		self.timer = length[self.state]
-	end
-	return self.state, self.timer
-end
-
-local round = Round.new()
-for i = 1, 12 do
-	print(i, round:tick())
-end`},
-{file:"Store.lua",code:`local Store = {fail = 2, data = {}}
-
-function Store.set(key, value)
-	if Store.fail > 0 then
-		Store.fail = Store.fail - 1
-		error("request failed", 0)
-	end
-	Store.data[key] = value
-end
-
-local function save(key, value, tries)
-	for attempt = 1, tries do
-		local ok, err = pcall(Store.set, key, value)
-		if ok then return true, attempt end
-		print("attempt " .. attempt .. " " .. err)
-	end
-	return false, tries
-end
-
-print(save("toartiro4", {coins = 120}, 5))
-print(Store.data.toartiro4.coins)`},
-{file:"Quest.lua",code:`local Quest = {}
-Quest.__index = Quest
-
-function Quest.new(name, goal)
-	return setmetatable({name = name, goal = goal, progress = 0, done = false}, Quest)
-end
-
-function Quest:report(amount)
-	if self.done then return end
-	self.progress = math.min(self.progress + amount, self.goal)
-	if self.progress == self.goal then
-		self.done = true
-		print(self.name .. " complete")
-	end
-end
-
-local quest = Quest.new("Collect Coins", 10)
-for i = 1, 5 do
-	quest:report(3)
-	print(i, quest.progress .. "/" .. quest.goal)
-end`}
-];
-const tabs=document.getElementById("tabs"),editor=document.getElementById("editor"),out=document.getElementById("out");
-function pick(i){
-[...tabs.children].forEach((b,n)=>b.classList.toggle("on",n===i));
-editor.value=samples[i].code;
-out.textContent="";
-}
-samples.forEach((s,i)=>{
-const b=document.createElement("button");
-b.type="button";
-b.textContent=s.file;
-b.onclick=()=>pick(i);
-tabs.appendChild(b);
-});
-pick(0);
-const prelude='local js=require("js") local function print(...) local t={} for i=1,select("#",...) do t[#t+1]=tostring((select(i,...))) end js.global:__out(table.concat(t,"\\t")) end ';
-document.getElementById("run").onclick=()=>{
-const lines=[];
-window.__out=s=>lines.push(String(s));
-if(typeof fengari==="undefined"){out.textContent="The Luau runner could not load. Check your internet.";return}
-try{fengari.load(prelude+editor.value)()}catch(e){lines.push(String(e&&e.message||e))}
-out.textContent=lines.length?lines.join("\n"):"No output";
-};
 const clock=document.getElementById("clock"),status=document.getElementById("status"),dot=document.getElementById("dot");
 function tick(){
 const d=new Date(Date.now()+5*3600000),p=n=>String(n).padStart(2,"0"),h=d.getUTCHours();
