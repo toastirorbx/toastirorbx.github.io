@@ -170,7 +170,167 @@ footer .text span{font-size:17px;color:#fff}
 <div class="content">
 <div class="title"><span>Showcase</span></div>
 <div class="sc-list">
-<div class="sc-item"><button class="sc-head" type="button" aria-expanded="false"><span>First Person Viewmodel</span><svg class="sc-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></button><div class="sc-body"><div class="sc-inner"><div class="sc-code"><button class="sc-copy" type="button" aria-label="Copy to clipboard" title="Copy to clipboard"><svg class="cp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button><pre><code></code></pre></div></div></div></div>
+<div class="sc-item"><button class="sc-head" type="button" aria-expanded="false"><span>Wind Effect</span><svg class="sc-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></button><div class="sc-body"><div class="sc-inner"><div class="sc-code"><button class="sc-copy" type="button" aria-label="Copy to clipboard" title="Copy to clipboard"><svg class="cp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button><pre><code>local runservice = game:GetService("RunService")
+
+local windeffect = {}
+
+local config = {
+	count = 45,
+	radius = 100,
+	heightmin = -10,
+	heightmax = 8,
+	lengthmin = 8,
+	lengthmax = 18,
+	widthmin = 0.08,
+	widthmax = 0.2,
+	speedmin = 45,
+	speedmax = 80,
+	lifemin = 1.2,
+	lifemax = 2.6,
+}
+
+local rng = Random.new()
+local streaks = {}
+local connection = nil
+local winddir = Vector3.new(1, 0, 0.3).Unit
+
+local transparency = NumberSequence.new({
+	NumberSequenceKeypoint.new(0, 1),
+	NumberSequenceKeypoint.new(0.25, 0.25),
+	NumberSequenceKeypoint.new(0.75, 0.25),
+	NumberSequenceKeypoint.new(1, 1),
+})
+
+local function place(streak)
+	local offset = winddir * (streak.length / 2)
+	streak.att0.WorldPosition = streak.position + offset
+	streak.att1.WorldPosition = streak.position - offset
+end
+
+local function respawn(streak, campos)
+	local angle = rng:NextNumber(0, math.pi * 2)
+	local dist = config.radius * math.sqrt(rng:NextNumber())
+	streak.position = campos + Vector3.new(
+		math.cos(angle) * dist,
+		rng:NextNumber(config.heightmin, config.heightmax),
+		math.sin(angle) * dist
+	)
+	streak.age = 0
+	streak.life = rng:NextNumber(config.lifemin, config.lifemax)
+	streak.speed = rng:NextNumber(config.speedmin, config.speedmax)
+	streak.width = rng:NextNumber(config.widthmin, config.widthmax)
+	streak.length = rng:NextNumber(config.lengthmin, config.lengthmax)
+end
+
+local function createstreak()
+	local att0 = Instance.new("Attachment")
+	att0.Parent = workspace.Terrain
+	local att1 = Instance.new("Attachment")
+	att1.Parent = workspace.Terrain
+
+	local beam = Instance.new("Beam")
+	beam.Attachment0 = att0
+	beam.Attachment1 = att1
+	beam.Color = ColorSequence.new(Color3.new(1, 1, 1))
+	beam.Texture = ""
+	beam.LightEmission = 1
+	beam.LightInfluence = 0
+	beam.FaceCamera = true
+	beam.Segments = 8
+	beam.CurveSize0 = 0
+	beam.CurveSize1 = 0
+	beam.Transparency = transparency
+	beam.Width0 = 0
+	beam.Width1 = 0
+	beam.Parent = workspace.Terrain
+
+	return {
+		att0 = att0,
+		att1 = att1,
+		beam = beam,
+		position = Vector3.zero,
+		age = 0,
+		life = 1,
+		speed = 0,
+		width = 0,
+		length = 1,
+	}
+end
+
+local function update(dt)
+	local camera = workspace.CurrentCamera
+	if not camera then
+		return
+	end
+	local campos = camera.CFrame.Position
+	local maxdist = config.radius * 1.6
+
+	for i = 1, #streaks do
+		local streak = streaks[i]
+		streak.age += dt
+		if streak.age &gt;= streak.life or (streak.position - campos).Magnitude &gt; maxdist then
+			respawn(streak, campos)
+		else
+			streak.position += winddir * streak.speed * dt
+		end
+		local width = streak.width * math.sin(math.pi * streak.age / streak.life)
+		streak.beam.Width0 = width
+		streak.beam.Width1 = width
+		place(streak)
+	end
+end
+
+function windeffect.setdirection(direction)
+	if direction.Magnitude == 0 then
+		return
+	end
+	winddir = direction.Unit
+end
+
+function windeffect.start(options)
+	if connection then
+		return
+	end
+
+	if options then
+		if options.direction then
+			windeffect.setdirection(options.direction)
+		end
+		for key, value in options do
+			if config[key] ~= nil then
+				config[key] = value
+			end
+		end
+	end
+
+	local camera = workspace.CurrentCamera
+	local campos = camera and camera.CFrame.Position or Vector3.zero
+
+	for i = 1, config.count do
+		local streak = createstreak()
+		respawn(streak, campos)
+		streak.age = rng:NextNumber(0, streak.life)
+		place(streak)
+		streaks[i] = streak
+	end
+
+	connection = runservice.Heartbeat:Connect(update)
+end
+
+function windeffect.stop()
+	if connection then
+		connection:Disconnect()
+		connection = nil
+	end
+	for i = 1, #streaks do
+		streaks[i].beam:Destroy()
+		streaks[i].att0:Destroy()
+		streaks[i].att1:Destroy()
+	end
+	table.clear(streaks)
+end
+
+return windeffect</code></pre></div></div></div></div>
 <div class="sc-item"><button class="sc-head" type="button" aria-expanded="false"><span>Shooting System</span><svg class="sc-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></button><div class="sc-body"><div class="sc-inner"><div class="sc-code"><button class="sc-copy" type="button" aria-label="Copy to clipboard" title="Copy to clipboard"><svg class="cp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button><pre><code></code></pre></div></div></div></div>
 <div class="sc-item"><button class="sc-head" type="button" aria-expanded="false"><span>Inventory and Hotbar</span><svg class="sc-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></button><div class="sc-body"><div class="sc-inner"><div class="sc-code"><button class="sc-copy" type="button" aria-label="Copy to clipboard" title="Copy to clipboard"><svg class="cp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button><pre><code></code></pre></div></div></div></div>
 <div class="sc-item"><button class="sc-head" type="button" aria-expanded="false"><span>Round System</span><svg class="sc-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></button><div class="sc-body"><div class="sc-inner"><div class="sc-code"><button class="sc-copy" type="button" aria-label="Copy to clipboard" title="Copy to clipboard"><svg class="cp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button><pre><code></code></pre></div></div></div></div>
