@@ -21,18 +21,8 @@ nav.sticky{background:var(--ac);padding:13px 0}
 nav .navbar{width:90%;display:flex;justify-content:space-between;align-items:center;margin:auto}
 nav .navbar .logo a{font-weight:600;font-size:32px;color:var(--ac)}
 nav.sticky .navbar .logo a{color:#fff}
-nav .navbar .menu{display:flex;position:relative}
-nav .navbar .menu li{list-style:none;margin:0 8px}
-.navbar .menu a{font-size:16px;font-weight:500;color:var(--dk);padding:6px 0;transition:all .4s ease}
-.navbar .menu a:hover{color:var(--ac)}
-nav.sticky .menu a{color:#fff}
-nav.sticky .menu a:hover{color:var(--dk)}
 .navbar .media-icons a{color:var(--ac);font-size:16px;font-weight:600;margin:0 6px}
 nav.sticky .media-icons a{color:#fff}
-nav .menu-btn,.navbar .menu .cancel-btn{position:absolute;color:#fff;right:30px;top:20px;font-size:24px;cursor:pointer;transition:all .3s ease;display:none}
-nav .menu-btn{color:var(--ac)}
-nav.sticky .menu-btn{color:#fff}
-.navbar .menu .menu-btn{color:#fff}
 .home{min-height:100vh;width:100%;background:linear-gradient(135deg,#fff 0%,var(--lt) 55%,var(--ln) 100%);font-family:'Sora',sans-serif}
 .home .home-content{width:90%;min-height:100vh;margin:auto;display:flex;flex-direction:column;justify-content:center}
 .home .text-one{font-size:24px;color:var(--dk)}
@@ -68,6 +58,23 @@ section .topic{color:var(--dk);font-family:'Sora',sans-serif;font-size:24px;font
 .skills-details .boxes .per{font-family:'Sora',sans-serif;font-size:48px;color:var(--ac)}
 .testimonials .boxes{display:flex;flex-wrap:wrap;justify-content:space-between}
 .testimonials .boxes .box{margin:20px 0;width:calc(100% / 3 - 20px);text-align:center;border-radius:12px;padding:30px 14px;box-shadow:0 5px 10px rgba(0,0,0,.12);cursor:default;transition:all .4s ease}
+.showcase .sc-list{display:flex;flex-direction:column;gap:16px}
+.sc-item{border-radius:12px;box-shadow:0 5px 10px rgba(0,0,0,.12);background:#fff;overflow:hidden}
+.sc-head{width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:26px 28px;background:none;border:0;cursor:pointer;font-family:'Sora',sans-serif;font-size:22px;font-weight:600;color:var(--dk);text-align:left}
+.sc-head:hover{color:var(--ac)}
+.sc-arrow{flex:none;width:28px;height:28px;transition:transform .3s ease}
+.sc-item.open .sc-arrow{transform:rotate(90deg)}
+.sc-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s ease}
+.sc-item.open .sc-body{grid-template-rows:1fr}
+.sc-inner{overflow:hidden;min-height:0}
+.sc-code{position:relative;margin:0 20px 20px;border-radius:10px;background:var(--dk)}
+.sc-code pre{margin:0;padding:20px 64px 20px 20px;min-height:140px;overflow-x:auto;color:#e6edf3;font-family:Consolas,Menlo,monospace;font-size:14px;line-height:1.6;tab-size:4}
+.sc-copy{position:absolute;top:10px;right:10px;width:38px;height:38px;display:flex;align-items:center;justify-content:center;border:0;border-radius:8px;background:rgba(255,255,255,.1);color:#fff;cursor:pointer;transition:background .3s ease}
+.sc-copy:hover{background:var(--ac)}
+.sc-copy svg{width:20px;height:20px}
+.sc-copy .ok{display:none}
+.sc-copy.done .ok{display:block}
+.sc-copy.done .cp{display:none}
 .clock{font-family:'Sora',sans-serif;font-size:64px;color:var(--ac);line-height:1.2}
 .dot{display:inline-block;width:12px;height:12px;border-radius:50%;background:#7a7a7a;margin-right:8px}
 .dot.on{background:#2fc977}
@@ -88,12 +95,6 @@ footer .text span{font-size:17px;color:#fff}
 }
 @media (max-width:900px){.about .left img{height:350px;width:350px}}
 @media (max-width:750px){
-nav .navbar .menu{position:fixed;left:-100%;top:0;background:var(--dk);height:100vh;max-width:400px;width:100%;padding-top:60px;flex-direction:column;align-items:center;transition:all .5s ease}
-.navbar.active .menu{left:0}
-nav .navbar .menu a{font-size:22px;display:block;color:#fff;margin:10px 0}
-nav.sticky .menu a:hover{color:var(--ac)}
-nav .navbar .media-icons{display:none}
-nav .menu-btn,.navbar .menu .cancel-btn{display:block}
 .home .text-two{font-size:60px}
 .home .text-three{font-size:32px}
 .skills .skills-details{align-items:center;justify-content:center;flex-direction:column}
@@ -103,6 +104,7 @@ nav .menu-btn,.navbar .menu .cancel-btn{display:block}
 .contact .text{width:100%}
 }
 @media (max-width:500px){
+.sc-head{font-size:18px;padding:20px}
 .home .text-two{font-size:48px}
 .home .text-three{font-size:28px}
 .about .left img{height:280px;width:280px}
@@ -116,19 +118,8 @@ nav .menu-btn,.navbar .menu .cancel-btn{display:block}
 <nav>
 <div class="navbar">
 <div class="logo"><a href="#home">toartiro4</a></div>
-<ul class="menu">
-<li class="cancel-btn">&times;</li>
-<li><a href="#home">Home</a></li>
-<li><a href="#about">About</a></li>
-<li><a href="#skills">Skills</a></li>
-<li><a href="#showcase">Showcase</a></li>
-<li><a href="#availability">Availability</a></li>
-<li><a href="#payment">Payment</a></li>
-<li><a href="#contact">Contact</a></li>
-</ul>
 <div class="media-icons"><a href="#contact">@toastiro4</a></div>
 </div>
-<div class="menu-btn">&#9776;</div>
 </nav>
 
 <div class="scroll-button"><a href="#home">&uarr;</a></div>
@@ -171,7 +162,6 @@ nav .menu-btn,.navbar .menu .cancel-btn{display:block}
 </div>
 </div>
 <div class="boxes">
-<div class="box"><div class="topic">Systems</div><div class="per">6</div></div>
 <div class="box"><div class="topic">Language</div><div class="per">Luau</div></div>
 <div class="box"><div class="topic">Tool</div><div class="per">Studio</div></div>
 <div class="box"><div class="topic">Time zone</div><div class="per">UTC+5</div></div>
@@ -180,16 +170,16 @@ nav .menu-btn,.navbar .menu .cancel-btn{display:block}
 </div>
 </section>
 
-<section class="testimonials" id="showcase">
+<section class="showcase" id="showcase">
 <div class="content">
 <div class="title"><span>Showcase</span></div>
-<div class="boxes">
-<div class="box"><div class="topic">First Person Viewmodel</div><p>Shows the arms and the tool on the screen. It moves when you walk, jump and look around.</p></div>
-<div class="box"><div class="topic">Shooting System</div><p>Guns with ammo, reload, recoil and spread. The server checks every shot so cheaters cannot abuse it.</p></div>
-<div class="box"><div class="topic">Inventory and Hotbar</div><p>Items go into slots and stack up. Players can swap, drop and equip items with the keyboard.</p></div>
-<div class="box"><div class="topic">Round System</div><p>A match that moves from lobby to game to the end by itself. Winners get rewards.</p></div>
-<div class="box"><div class="topic">Data Save System</div><p>Saves player data and tries again if something goes wrong. Data is not lost when a player leaves.</p></div>
-<div class="box"><div class="topic">Quest System</div><p>Gives tasks to players and tracks the progress. Players get a reward when a task is done.</p></div>
+<div class="sc-list">
+<div class="sc-item"><button class="sc-head" type="button" aria-expanded="false"><span>First Person Viewmodel</span><svg class="sc-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></button><div class="sc-body"><div class="sc-inner"><div class="sc-code"><button class="sc-copy" type="button" aria-label="Copy to clipboard" title="Copy to clipboard"><svg class="cp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button><pre><code></code></pre></div></div></div></div>
+<div class="sc-item"><button class="sc-head" type="button" aria-expanded="false"><span>Shooting System</span><svg class="sc-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></button><div class="sc-body"><div class="sc-inner"><div class="sc-code"><button class="sc-copy" type="button" aria-label="Copy to clipboard" title="Copy to clipboard"><svg class="cp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button><pre><code></code></pre></div></div></div></div>
+<div class="sc-item"><button class="sc-head" type="button" aria-expanded="false"><span>Inventory and Hotbar</span><svg class="sc-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></button><div class="sc-body"><div class="sc-inner"><div class="sc-code"><button class="sc-copy" type="button" aria-label="Copy to clipboard" title="Copy to clipboard"><svg class="cp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button><pre><code></code></pre></div></div></div></div>
+<div class="sc-item"><button class="sc-head" type="button" aria-expanded="false"><span>Round System</span><svg class="sc-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></button><div class="sc-body"><div class="sc-inner"><div class="sc-code"><button class="sc-copy" type="button" aria-label="Copy to clipboard" title="Copy to clipboard"><svg class="cp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button><pre><code></code></pre></div></div></div></div>
+<div class="sc-item"><button class="sc-head" type="button" aria-expanded="false"><span>Data Save System</span><svg class="sc-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></button><div class="sc-body"><div class="sc-inner"><div class="sc-code"><button class="sc-copy" type="button" aria-label="Copy to clipboard" title="Copy to clipboard"><svg class="cp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button><pre><code></code></pre></div></div></div></div>
+<div class="sc-item"><button class="sc-head" type="button" aria-expanded="false"><span>Quest System</span><svg class="sc-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></button><div class="sc-body"><div class="sc-inner"><div class="sc-code"><button class="sc-copy" type="button" aria-label="Copy to clipboard" title="Copy to clipboard"><svg class="cp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button><pre><code></code></pre></div></div></div></div>
 </div>
 </div>
 </section>
@@ -240,34 +230,31 @@ window.onscroll=function(){
 if(document.documentElement.scrollTop>20){nav.classList.add("sticky");scrollBtn.style.display="block"}
 else{nav.classList.remove("sticky");scrollBtn.style.display="none"}
 };
-let body=document.querySelector("body");
-let navBar=document.querySelector(".navbar");
-let menuBtn=document.querySelector(".menu-btn");
-let cancelBtn=document.querySelector(".cancel-btn");
-menuBtn.onclick=function(){
-navBar.classList.add("active");
-menuBtn.style.opacity="0";
-menuBtn.style.pointerEvents="none";
-body.style.overflow="hidden";
-scrollBtn.style.pointerEvents="none";
-};
-cancelBtn.onclick=function(){
-navBar.classList.remove("active");
-menuBtn.style.opacity="1";
-menuBtn.style.pointerEvents="auto";
-body.style.overflow="auto";
-scrollBtn.style.pointerEvents="auto";
-};
-let navLinks=document.querySelectorAll(".menu li a");
-for(let i=0;i<navLinks.length;i++){
-navLinks[i].addEventListener("click",function(){
-navBar.classList.remove("active");
-menuBtn.style.opacity="1";
-menuBtn.style.pointerEvents="auto";
-body.style.overflow="auto";
-scrollBtn.style.pointerEvents="auto";
+document.querySelectorAll(".sc-item").forEach(function(item){
+const head=item.querySelector(".sc-head"),btn=item.querySelector(".sc-copy"),code=item.querySelector("code");
+head.addEventListener("click",function(){
+const open=item.classList.toggle("open");
+head.setAttribute("aria-expanded",open);
 });
+btn.addEventListener("click",function(){
+const text=code.textContent;
+const finish=function(){
+btn.classList.add("done");
+setTimeout(function(){btn.classList.remove("done")},1500);
+};
+if(navigator.clipboard&&window.isSecureContext){
+navigator.clipboard.writeText(text).then(finish);
+}else{
+const t=document.createElement("textarea");
+t.value=text;
+document.body.appendChild(t);
+t.select();
+document.execCommand("copy");
+t.remove();
+finish();
 }
+});
+});
 const clock=document.getElementById("clock"),status=document.getElementById("status"),dot=document.getElementById("dot");
 function tick(){
 const d=new Date(Date.now()+5*3600000),p=n=>String(n).padStart(2,"0"),h=d.getUTCHours();
